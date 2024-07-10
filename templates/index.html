@@ -3,21 +3,29 @@
     <head>
         <meta charset="utf-8">
         <title>{{ name }}'s Watchlist</title>
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
     </head>
 
     <body>
-        <h2>{{ name }}'s Watchlist</h2>
-        {# 使用 length 过滤器获取 Movies 变量的长度 #}
-        <p>{{ movies|length }} Titles</p>
-        <ul>
-            {% for movie in movies %} {# 迭代 movies 变量来进行处理 #}
-                <li>{{ movie.title }} - {{ movie.year }}</li> {# 相当于取值 movie['title'] #}
-            {% endfor %}
-        </ul>
+        <div class="container">
+            <h2>
+                <img class="avatar" alt="Avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
+                {{ name }}'s Watchlist
+            </h2>
+            {# 使用 length 过滤器获取 Movies 变量的长度 #}
+            <p>{{ movies|length }} Titles</p>
+            <ul class="movie-list">
+                {% for movie in movies %} {# 迭代 movies 变量来进行处理 #}
+                    <li>{{ movie.title }} - {{ movie.year }}</li> {# 相当于取值 movie['title'] #}
+                {% endfor %}
+            </ul>
 
-        <footer>
-            <small>&copy; 2024 <a href="https://saitoler.github.io">Saitoler's blog</a></small>
-        </footer>
+            <img class="totoro" alt="Walking totora" src="{{ url_for('static', filename='images/totoro.gif') }}">
+            <footer>
+                <small>&copy; 2024 <a href="https://saitoler.github.io">Saitoler's blog</a></small>
+            </footer>
+        </div>
     </body>
 </html>
 
