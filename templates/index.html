@@ -1,31 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>{{ name }}'s Watchlist</title>
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-    </head>
-
-    <body>
-        <div class="container">
-            <h2>
-                <img class="avatar" alt="Avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
-                {{ name }}'s Watchlist
-            </h2>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#    <head>#}
+{#        <meta charset="utf-8">#}
+{#        <title>{{ name }}'s Watchlist</title>#}
+{#        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">#}
+{#        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">#}
+{#    </head>#}
+{##}
+{#    <body>#}
+{#        <div class="container">#}
+{#            <h2>#}
+{#                <img class="avatar" alt="Avatar" src="{{ url_for('static', filename='images/avatar.png') }}">#}
+{#                {{ name }}'s Watchlist#}
+{#            </h2>#}
             {# 使用 length 过滤器获取 Movies 变量的长度 #}
-            <p>{{ movies|length }} Titles</p>
-            <ul class="movie-list">
-                {% for movie in movies %} {# 迭代 movies 变量来进行处理 #}
-                    <li>{{ movie.title }} - {{ movie.year }}</li> {# 相当于取值 movie['title'] #}
-                {% endfor %}
-            </ul>
+{#            <p>{{ movies|length }} Titles</p>#}
+{#            <ul class="movie-list">#}
+{#                {% for movie in movies %} {# 迭代 movies 变量来进行处理 #}
+{#                    <li>{{ movie.title }} - {{ movie.year }}</li> {# 相当于取值 movie['title'] #}
+{#                {% endfor %}#}
+{#            </ul>#}
+{##}
+{#            <img class="totoro" alt="Walking totora" src="{{ url_for('static', filename='images/totoro.gif') }}">#}
+{#            <footer>#}
+{#                <small>&copy; 2024 <a href="https://saitoler.github.io">Saitoler's blog</a></small>#}
+{#            </footer>#}
+{#        </div>#}
+{#    </body>#}
+{#</html>#}
 
-            <img class="totoro" alt="Walking totora" src="{{ url_for('static', filename='images/totoro.gif') }}">
-            <footer>
-                <small>&copy; 2024 <a href="https://saitoler.github.io">Saitoler's blog</a></small>
-            </footer>
-        </div>
-    </body>
-</html>
 
+
+
+{% extends 'base.html' %}
+{% block content %}
+<p> {{ movies|length }} Titles</p>
+<ul class='movie-list'>
+    {% for movie in movies %}
+    <li>
+        {{ movie.title}} - {{ movie.year }}
+        <span class='float-right'>
+            <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank" title="Find this movie on Imdb">IMDb</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~to">
+{% endblock %}

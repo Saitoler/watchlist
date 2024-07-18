@@ -28,6 +28,7 @@ movies = [
     {'title': 'The Pork of Music', 'year': '2012'},
 ]
 
+
 # 创建数据库模型
 class User(db.Model):  # 表名将会是 user (自动生成，小写处理)
     id = db.Column(db.Integer, primary_key=True)
@@ -75,6 +76,19 @@ def forge():
 def index():  # put application's code here
     # return '<h1>Hello Totoro!</h1><img src="http://helloflask.com/totoro.gif">'
     return render_template('index.html', name=name, movies=movies)
+
+
+# 404处理函数， 作为统一的 404 错误页面进行返回
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+# 这个装饰器可以注册一个模板上下文处理函数， 对于多个模板内都需要使用的变量就不需要在每个模板里重复去查询了
+@app.context_processor
+def get_user_info():
+    user = User.query.first()
+    return dict(user=user)  # 这里需要返回一个字典类型，相当于 return {"user": user}
 
 
 @app.route('/home')
